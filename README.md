@@ -13,15 +13,6 @@ Here is the list of the parameters :
 * -rx  Set a radius factor for the statistic computation. (default : 2.0)
 * -fq  Keep the console open for single testing
 
-Please verify that those files are in the build folder at the post generation step.  
-L_data.txt  
-RegularGrid_0_0_1.txt  
-RegularGrid_0_0_2.txt  
-RegularGridInit_0_0_1.txt  
-RegularGridInit_0_0_2.txt  
-
-
-
 To use the compiled binary  :
 
 ```

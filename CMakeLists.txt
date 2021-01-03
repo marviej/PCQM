@@ -16,10 +16,4 @@ include_directories(eigen3/)
 
 include_directories(include/)
 
-FILE(COPY resources/L_data.txt DESTINATION "${CMAKE_BINARY_DIR}")
-FILE(COPY resources/RegularGrid_0_0_1.txt DESTINATION "${CMAKE_BINARY_DIR}")
-FILE(COPY resources/RegularGrid_0_0_2.txt DESTINATION "${CMAKE_BINARY_DIR}")
-FILE(COPY resources/RegularGridInit_0_0_1.txt DESTINATION "${CMAKE_BINARY_DIR}")
-FILE(COPY resources/RegularGridInit_0_0_2.txt DESTINATION "${CMAKE_BINARY_DIR}")
-
 install(TARGETS PCQM RUNTIME DESTINATION bin)

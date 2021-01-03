@@ -24,6 +24,7 @@
 #include <Eigen/Dense>
 #include "utilities.h"
 #include "pcqm.h"
+#include "resources.h"
 
 using namespace std;
 using namespace nanoflann;
@@ -153,72 +154,31 @@ void initMatLABCH(
 	std::vector<std::vector<std::pair<double, double>>>& init_grid_AB)
 {
 
-	int size_L = 100001;
-	int size_row = 257;
-	int size_col = 257;
+	size_t size_L = 100001;
+	size_t size_row = 257;
+	size_t size_col = 257;
 	init_grid_L.assign(size_L, 0);
 	grid_L.assign(size_L, 0);
 
 	int size_tabAB = 66049;
 	init_grid_AB.assign(size_col, std::vector<std::pair<double, double>>(size_row, std::make_pair(0.0, 0.0)));
 
-	std::ifstream data_f;
-	std::ifstream data_g;
-	std::ifstream data_a;
-	std::ifstream data_b;
-	data_f.open("L_data.txt", std::ifstream::in);
-
-
-	if (!data_f.fail()) {
-		std::string line1;
-		int cpt = 0;
-		while (getline(data_f, line1) && cpt < size_L) {
-			grid_L[cpt] = std::stod(line1);
-			cpt++;
-		}
-	}
-	else
-		std::cout << "Unable to open L_data.txt \t";
-	data_f.close();
-
 	// init grid L (from matlab code)
-	for (int i = 0; i < init_grid_L.size(); i++) {
+    for ( size_t i = 0 ; i < size_L ; i++ ){
+        grid_L[i] = L_data[i];
+    }
+  
+	for ( size_t i = 0; i < init_grid_L.size(); i++) {
 		init_grid_L[i] = i * 0.001;
 	}
 
-	data_f.open("RegularGridInit_0_0_1.txt", std::ifstream::in);
-	data_g.open("RegularGridInit_0_0_2.txt", std::ifstream::in);
-	data_a.open("RegularGrid_0_0_1.txt", std::ifstream::in);
-	data_b.open("RegularGrid_0_0_2.txt", std::ifstream::in);
+    for ( size_t i = 0 ; i < size_tabAB ; i++ ){
+        init_grid_AB[(int)RegularGridInit_0_0_1[i] + 128][(int)RegularGridInit_0_0_2[i] + 128].first = 
+            RegularGrid_0_0_1[i];
+	    init_grid_AB[(int)RegularGridInit_0_0_1[i] + 128][(int)RegularGridInit_0_0_2[i] + 128].second = 
+            RegularGrid_0_0_2[i];
+    }
 
-
-	if (!data_f.fail() && !data_g.fail() && !data_a.fail() && !data_b.fail()) {
-		std::string line1;
-		std::string line2;
-		std::string line3;
-		std::string line4;
-
-		int cpt = 0;
-		while (getline(data_f, line1) && getline(data_g, line2) && getline(data_a, line3) && getline(data_b, line4) &&
-			cpt <= size_tabAB) {
-
-			init_grid_AB[std::stoi(line1) + 128][std::stoi(line2) + 128].first = std::stod(line3);
-			init_grid_AB[std::stoi(line1) + 128][std::stoi(line2) + 128].second = std::stod(line4);
-
-			cpt++;
-		}
-	}
-	else
-	{
-		std::cerr << "Unable to open RegularGridInit_0_0_1.txt, RegularGridInit_0_0_2.txt, RegularGrid_0_0_1.txt or "
-			"RegularGrid_0_0_2.txt Closed \t";
-		exit(EXIT_FAILURE);
-	}
-	
-	data_f.close();
-	data_g.close();
-	data_a.close();
-	data_b.close();
 }
 
 
