@@ -18,7 +18,7 @@ public:
   friend std::ostream& operator<<(std::ostream& os, const Point& pts);
 };
 
-Point operator+(const Point& p1, const Point& p2) {
+inline Point operator+(const Point& p1, const Point& p2) {
   Point p;
   p.x = p1.x + p2.x;
   p.y = p1.y + p2.y;
@@ -26,7 +26,7 @@ Point operator+(const Point& p1, const Point& p2) {
   return p;
 }
 
-Point operator+(const Point& p1, const Eigen::Vector3d& n) {
+inline Point operator+(const Point& p1, const Eigen::Vector3d& n) {
   Point p;
   p.x = p1.x + n(0);
   p.y = p1.y + n(1);
@@ -34,7 +34,7 @@ Point operator+(const Point& p1, const Eigen::Vector3d& n) {
   return p;
 }
 
-Point operator/(const Point& p1, const double a) {
+inline Point operator/(const Point& p1, const double a) {
   Point p;
   p.x = p1.x / a;
   p.y = p1.y / a;
@@ -42,7 +42,7 @@ Point operator/(const Point& p1, const double a) {
   return p;
 }
 
-Point operator*(const Point& p1, const double a) {
+inline Point operator*(const Point& p1, const double a) {
   Point p;
   p.x = p1.x * a;
   p.y = p1.y * a;
@@ -50,13 +50,13 @@ Point operator*(const Point& p1, const double a) {
   return p;
 }
 
-std::ostream& operator<<(std::ostream& os, const Point& pts) {
+inline std::ostream& operator<<(std::ostream& os, const Point& pts) {
   os << "{" << pts.x << " , " << pts.y << " , " << pts.z << " }";
   return os;
 }
 
 
-Eigen::Matrix3d operator*(const Point& p1, const Point& p2) {
+inline Eigen::Matrix3d operator*(const Point& p1, const Point& p2) {
   Eigen::Matrix3d M(3, 3);
   M(0, 0) = p1.x * p2.x;
   M(0, 1) = p1.x * p2.y;

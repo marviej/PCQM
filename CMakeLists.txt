@@ -10,7 +10,7 @@ if (NOT MSVC)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -fopenmp -std=c++17")
 endif(NOT MSVC)
 
-add_executable(PCQM main.cpp)
+add_executable(PCQM pcqm.cpp main.cpp )
 
 include_directories(eigen3/)
 
